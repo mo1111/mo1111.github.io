@@ -1,0 +1,139 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Animacje</title>
+		<meta charset="utf-8">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+		<style>
+			[v-cloak]{ display: none; }
+			.fade-enter-active, .fade-leave-active{
+				transition: opacity .5s;
+			}
+			.fade-enter, .fade-leave-to{
+				opacity: 0;
+			}
+			.fade-move{
+				transition: transform 1s;
+			}
+		</style>
+	</head>
+	<body>			
+			
+			<div id="app" style="width: 60%; margin: 10px auto; padding: 10px;">
+			
+				<transition-group name="fade" tag="ul">
+					<li v-for="(number, index) in numbers" :key="number">{{ number }}</li>
+				</transition-group>
+				
+				<button class="btn btn-danger" @click="shuffle">Shuffle</button>
+				
+				<br>
+				<br>
+				<!-- v-if -->
+				<button class="btn btn-primary" @click="show = !show">
+					<span v-if="show">Hide</span>
+					<span v-if="!show">Show</span>
+				</button>
+				<transition name="fade" appear>
+					<p v-if="show" style="padding: 20px;">
+						Vue provides a variety of ways to apply transition effects when items are inserted, updated, or removed from the DOM. Vue provides a variety of ways to apply transition effects when items are inserted, updated, or removed from the DOM. Vue provides a variety of ways to apply transition effects when items are inserted, updated, or removed from the DOM. Vue provides a variety of ways to apply transition effects when items are inserted, updated, or removed from the DOM.
+					</p>
+				</transition>
+				
+				<!-- v-if, v-else -->
+				<!--<transition name="fade">-->
+					<ul v-if="users.length" >
+						<li v-for="(user,index) in users" :key="user.id" @click="remove(index)">{{ user.name }}</li>
+					</ul>
+					<p v-else>No users</p>
+				<!--</transition>-->
+				
+				<!-- LISTA -->
+				<transition-group name="fade" tag="ul">
+					<li v-for="(user,index) in users" :key="user.id" @click="remove(index)">
+						{{ user.name }}
+					</li>
+				</transition-group>
+				
+				<!-- KOMPONENTY -->
+				<ul class="nav">
+					<li v-for="(item,index) in menu" 
+					:key="index" 
+					style="text-transform: capitalize"
+					@click="view = item"
+					class="nav-link">
+						{{ item }}
+					</li>
+				</ul>
+				<transition name="fade" mode="out-in">
+					<component :is="view"></component>
+				</transition>
+			</div>			
+			
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script>
+			
+			Vue.component("home",{
+				template: `<h1>Home</h1>`,
+			});
+			
+			Vue.component("pricing",{
+				template: `<p>Vue provides a variety of ways to apply transition effects when items are inserted, updated, or removed from the DOM. Vue provides a variety of ways to apply transition effects when items are inserted, updated, or removed from the DOM. </p>`,
+			});
+			
+			Vue.component("contact",{
+				template: `<h2>Contact</h2>`,
+			})
+			
+			new Vue({
+				el: "#app",
+				data:{
+					show: true,
+					users:[
+						{id: 1, name: "Smith"},
+						{id: 2, name: "Doe"},
+						{id: 3, name: "Kowalski"},
+						{id: 4, name: "Nowak"},
+						{id: 5, name: "Kowalczyk"},
+					],
+					menu:[
+						"home","pricing","contact"
+					],
+					view: "home",
+					numbers:[1,2,3,4,5,6],
+				},
+				methods:{
+					remove(id){
+						this.users.splice(id,1);
+					},
+					shuffle(){
+						this.numbers.sort((a,b)=>(0.5 - Math.random()));
+					}
+				}
+			});
+			
+		</script>
+	</body>
+</html>
+
+
+<!--
+
+https://snipcart.com/blog/vuejs-transitions-animations
+https://snipcart.com/blog/vuejs-blog-demo
+https://snipcart.com/blog/vuejs-ecommerce-headless-buttercms
+https://snipcart.com/blog
+https://snipcart.com/blog/vue-component-example-tutorial
+https://codepen.io/dimaZubkov/pen/MzazgW
+https://vuejsexamples.com/a-expander-accordion-with-vue-js/
+https://snipcart.com/blog/vue-component-example-tutorial
+https://vuejs.org/v2/guide/components.html
+https://vuejs.org/v2/guide/transitions.html
+
+
+
+
+
+-->
